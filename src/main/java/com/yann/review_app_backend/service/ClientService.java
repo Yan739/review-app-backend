@@ -1,49 +1,60 @@
 package com.yann.review_app_backend.service;
 
 import com.yann.review_app_backend.entity.Client;
+import com.yann.review_app_backend.exception.ClientNotFoundException;
+import com.yann.review_app_backend.exception.DuplicateEmailException;
 import com.yann.review_app_backend.repository.ClientRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @Service
 public class ClientService {
 
-    private final ClientRepository clientRepository;
+    private final ClientRepository repository;
 
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
+    public ClientService(ClientRepository repository) {
+        this.repository = repository;
     }
 
-    public String save(Client client) {
-        Client saved =  clientRepository.save(client);
-        return "Client " + saved.getId() + " created";
+    public Client save(@NonNull Client client) {
+
+        if (client.getId() == null && repository.existsByEmail(client.getEmail())) {
+            throw new DuplicateEmailException(client.getEmail());
+        }
+        return repository.save(client);
     }
 
     public List<Client> getAll() {
-        return clientRepository.findAll().stream().collect(Collectors.toList());
+        return repository.findAll();
     }
 
     public Client getById(Long id) {
-        return clientRepository.findClientById(id);
+        return repository.findById(id).orElseThrow(() -> new ClientNotFoundException(id));
     }
 
-    public String update(Long id, @NonNull Client client) {
-        Client found = clientRepository.findClientById(id);
-
-        found.setEmail(client.getEmail());
-
-        clientRepository.save(found);
-        return "Client " + id + " updated";
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ClientNotFoundException(id);
+        }
+        repository.deleteById(id);
     }
 
-    public String delete(Long id) {
-        clientRepository.deleteById(id);
-        return "Client " + id + " deleted";
+    public Client update(Long id, @NonNull Client client) {
+        Client existing = getById(id);
+
+
+        if (!existing.getEmail().equals(client.getEmail()) &&
+                repository.existsByEmail(client.getEmail())) {
+            throw new DuplicateEmailException(client.getEmail());
+        }
+
+        existing.setEmail(client.getEmail());
+        return repository.save(existing);
     }
 
+    public Client findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
 }

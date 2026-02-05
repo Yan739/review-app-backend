@@ -1,0 +1,15 @@
+com\yann\review_app_backend\repository\ClientRepository.class
+com\yann\review_app_backend\ReviewAppBackendApplication.class
+com\yann\review_app_backend\service\ClientService.class
+com\yann\review_app_backend\controller\ClientController.class
+com\yann\review_app_backend\exception\SentimentNotFoundException.class
+com\yann\review_app_backend\entity\Sentiment.class
+com\yann\review_app_backend\exception\GlobalExceptionHandler.class
+com\yann\review_app_backend\exception\DuplicateEmailException.class
+com\yann\review_app_backend\entity\TypeSentiment.class
+com\yann\review_app_backend\service\SentimentService.class
+com\yann\review_app_backend\repository\SentimentRepository.class
+com\yann\review_app_backend\exception\ClientNotFoundException.class
+com\yann\review_app_backend\controller\SentimentController.class
+com\yann\review_app_backend\entity\Client.class
+com\yann\review_app_backend\exception\ApiError.class

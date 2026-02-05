@@ -2,7 +2,9 @@ package com.yann.review_app_backend.controller;
 
 import com.yann.review_app_backend.entity.Client;
 import com.yann.review_app_backend.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,36 +21,33 @@ public class ClientController {
         this.service = service;
     }
 
-    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public String createClient(@RequestBody Client client) {
-        this.service.save(client);
-        return "Client created";
+    public ResponseEntity<Client> createClient(@RequestBody Client client) {
+        Client created = this.service.save(client);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public List<Client> getAll() {
-        return this.service.getAll();
+    public ResponseEntity<List<Client>> getAllClients () {
+        return ResponseEntity.ok(this.service.getAll());
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(value = "{id}", produces = APPLICATION_JSON_VALUE)
-    public Client getClient(@PathVariable Long id) {
-        return this.service.getById(id);
+    public ResponseEntity<Client> getClient(@PathVariable Long id) {
+        return ResponseEntity.ok(this.service.getById(id));
     }
 
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+
     @DeleteMapping(value = "{id}")
-    public void deleteClient(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         this.service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
     @PutMapping(value = "{id}", consumes = APPLICATION_JSON_VALUE)
-    public String updateClient(@PathVariable Long id, @RequestBody Client client) {
-        this.service.update(id, client);
-        return "Client with id " + id + " updated";
+    public ResponseEntity<Client>updateClient(@PathVariable Long id, @Valid @RequestBody Client client) {
+        Client updated = this.service.update(id, client);
+        return ResponseEntity.ok(updated);
     }
 
 }

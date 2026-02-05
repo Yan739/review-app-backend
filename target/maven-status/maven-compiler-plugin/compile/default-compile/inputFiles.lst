@@ -1,0 +1,15 @@
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\controller\ClientController.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\controller\SentimentController.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\entity\Client.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\entity\Sentiment.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\entity\TypeSentiment.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\exception\ApiError.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\exception\ClientNotFoundException.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\exception\DuplicateEmailException.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\exception\GlobalExceptionHandler.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\exception\SentimentNotFoundException.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\repository\ClientRepository.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\repository\SentimentRepository.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\ReviewAppBackendApplication.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\service\ClientService.java
+C:\Users\ngate\IdeaProjects\review-app-backend\review-app-backend\src\main\java\com\yann\review_app_backend\service\SentimentService.java

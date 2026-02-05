@@ -1,9 +1,10 @@
 package com.yann.review_app_backend.service;
 
 import com.yann.review_app_backend.entity.Sentiment;
+import com.yann.review_app_backend.exception.SentimentNotFoundException;
 import com.yann.review_app_backend.repository.SentimentRepository;
-import java.util.List;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,29 +15,29 @@ public class SentimentService {
         this.sentimentRepository = sentimentRepository;
     }
 
-    public void createSentiment(Sentiment sentiment) {
-        sentimentRepository.save(sentiment);
+    public Sentiment createSentiment(@NonNull Sentiment sentiment) {
+        return sentimentRepository.save(sentiment);
     }
 
     public Sentiment getSentimentById(Long id) {
-        return sentimentRepository.findById(id).orElse(null);
+        return sentimentRepository.findById(id)
+                .orElseThrow(() -> new SentimentNotFoundException(id));
     }
 
-    public void updateSentiment(Long id, Sentiment sentiment) {
-        Sentiment existingSentiment = sentimentRepository.findById(id).orElse(null);
-        if (existingSentiment != null) {
-            existingSentiment.setTexte(sentiment.getTexte());
-            existingSentiment.setType(sentiment.getType());
-            existingSentiment.setClient(sentiment.getClient());
-            sentimentRepository.save(existingSentiment);
-        }
+    public Sentiment updateSentiment(Long id, @NonNull Sentiment sentiment) {
+        Sentiment existing = sentimentRepository.findById(id).orElse(null);
+        if (existing == null) throw new SentimentNotFoundException(id);
+        existing.setText(sentiment.getText());
+        existing.setType(sentiment.getType());
+        existing.setClient(sentiment.getClient());
+        return sentimentRepository.save(existing);
     }
 
     public void deleteSentiment(Long id) {
         sentimentRepository.deleteById(id);
     }
 
-    public List<Sentiment> getAllSentiments() {
+    public Iterable <Sentiment> getAllSentiments() {
         return sentimentRepository.findAll();
     }
 
@@ -49,6 +50,7 @@ public class SentimentService {
     }
 
     public void deleteSentimentById(Long id) {
+        if (!sentimentRepository.existsById(id)) throw new SentimentNotFoundException(id);
         sentimentRepository.deleteById(id);
     }
 
